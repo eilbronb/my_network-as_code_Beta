@@ -1,0 +1,10 @@
+timezone: PST
+timezone_offset: -8
+timezone_summer: PDT
+
+domain_name: us03.beta.gns3
+name_server_1: 10.10.10.11
+name_Server_2: 10.10.10.12
+ntp_server: 10.10.10.11
+username: admin1
+password: password123
