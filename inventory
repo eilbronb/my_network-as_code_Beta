@@ -1,0 +1,10 @@
+[ios]
+R1 = ansible_host
+R2 = ansible_host
+IOU-L3 = ansible_host
+
+
+[nxos]
+9K-1
+
+
