@@ -1,0 +1,9 @@
+---
+  - name: Generate IOS Router Configurations
+    connection: local
+    hosts: ios
+    gather_facts: no
+    tasks:
+      - template:
+          src=templates/cisco_ios_router.j2
+          dest=configs/{{ inventory_hostname }}

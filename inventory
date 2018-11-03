@@ -1,10 +1,8 @@
 [ios]
-R1 = ansible_host
-R2 = ansible_host
-IOU-L3 = ansible_host
+R1 ansible_host=10.10.10.27
+R2 ansible_host=10.10.10.26
+IOU-L3 ansible_host=10.10.10.21
 
 
 [nxos]
 9K-1
-
-
