@@ -9,7 +9,14 @@ no service password-encryption
 !
 hostname {{ inventory_hostname }}
 logging_buff_size {{ logging_buff_size }}
-!
+clock timezone {{ timezone }} {{ timeszone_offset }}
+clock summer-time {{ timezone_summer }} recurring
+ip domain name {{ domain_name }}
+ip name-server {{ name_server_1}}
+ip name_server {{ name_server_2 }}
+ntp server {{ ntp_server }}
+username {{ username }} privilege 15 secret {{ password }}
+
 boot-start-marker
 boot-end-marker
 !
