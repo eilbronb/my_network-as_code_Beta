@@ -9,7 +9,7 @@ no service password-encryption
 !
 hostname {{ inventory_hostname }}
 logging_buff_size {{ logging_buff_size }}
-clock timezone {{ timezone }} {{ timeszone_offset }}
+clock timezone {{ timezone }} {{ timezone_offset }}
 clock summer-time {{ timezone_summer }} recurring
 ip domain name {{ domain_name }}
 ip name-server {{ name_server_1}}
