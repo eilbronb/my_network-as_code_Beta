@@ -14,12 +14,14 @@ clock summer-time PDT recurring
 ip domain name us03.beta.gns3
 ip name-server 10.10.10.11
 ip name_server 10.10.10.12
-ntp server 10.10.10.11
+
 username admin1 privilege 15 secret password123
 
 username admin9 privilege 15 password 0 password123
 username admin10 privilege 15 password 0 password123
 
+
+ntp server 10.10.10.11ntp server 10.10.10.12
 boot-start-marker
 boot-end-marker
 !
