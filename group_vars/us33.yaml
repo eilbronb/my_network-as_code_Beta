@@ -22,9 +22,9 @@ users: {
 
 ntp: {
   '10.10.10.11' : {
-      'prefer': true
+    'prefer': true
     },
   '10.10.10.12' : {
-      'prefer': false
+    'prefer': false
     }
 }
