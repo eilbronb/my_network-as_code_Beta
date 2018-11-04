@@ -17,8 +17,8 @@ ip name_server {{ name_server_2 }}
 ntp server {{ ntp_server }}
 username {{ username }} privilege 15 secret {{ password }}
 
-{% for user, data in users.items() %}
-username {{ user }} privilege {{ data.privilege }} password 0 {{ data.password }}
+{% for key, value in users.items() %}
+username {{ key }} privilege {{ value.privilege }} password 0 {{ value.password }}
 {% endfor %}
 
 boot-start-marker
