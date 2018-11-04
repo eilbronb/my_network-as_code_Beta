@@ -14,11 +14,16 @@ clock summer-time {{ timezone_summer }} recurring
 ip domain name {{ domain_name }}
 ip name-server {{ name_server_1}}
 ip name_server {{ name_server_2 }}
-ntp server {{ ntp_server }}
+
 username {{ username }} privilege 15 secret {{ password }}
 
 {% for key, value in users.items() %}
 username {{ key }} privilege {{ value.privilege }} password 0 {{ value.password }}
+{% endfor %}
+
+
+{% for key, value in ntp.items() %}
+ntp server {{ key }}{% if value['prefer'] == 'true' %} prefer {% endif %}
 {% endfor %}
 
 boot-start-marker
