@@ -33,6 +33,13 @@ ip address {{ value['ip'] }} {{ value['mask'] }}
 no shut
 {% endfor %}
 
+{% for key, value in Ethernet_Interfaces.items() %}
+interface {{ key }}
+ip address {{ value['ip']}} {{ value['mask'] }}
+negotiation auto
+no shut
+{% endfor %}
+
 boot-start-marker
 boot-end-marker
 !
