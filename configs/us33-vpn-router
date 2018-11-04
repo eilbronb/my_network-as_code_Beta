@@ -21,7 +21,9 @@ username admin9 privilege 15 password 0 password123
 username admin10 privilege 15 password 0 password123
 
 
-ntp server 10.10.10.11ntp server 10.10.10.12
+ntp server 10.10.10.11
+ntp server 10.10.10.12
+
 boot-start-marker
 boot-end-marker
 !
