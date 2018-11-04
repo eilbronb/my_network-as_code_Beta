@@ -23,7 +23,7 @@ username {{ key }} privilege {{ value.privilege }} password 0 {{ value.password 
 
 
 {% for key, value in ntp.items() %}
-ntp server {{ key }} {% if value['prefer'] == 'true' %} prefer {% endif %}
+ntp server {{ key }} {% if value['prefer'] == true %} prefer {% endif %}
 
 {% endfor %}
 
