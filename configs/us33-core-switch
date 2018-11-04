@@ -24,6 +24,13 @@ username admin10 privilege 15 password 0 password123
 ntp server 10.10.10.11 prefer 
 ntp server 10.10.10.12
 
+interface loopback0
+ip address 99.99.99.99 255.255.255.255
+no shut
+interface loopback1
+ip address 101.101.101.101 255.255.255.255
+no shut
+
 boot-start-marker
 boot-end-marker
 !
