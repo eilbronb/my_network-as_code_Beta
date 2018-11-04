@@ -8,3 +8,9 @@ loopback_interfaces: {
       'mask': '255.255.255.255'
   }
 }
+Ethernet_Interfaces: {
+         'ethernet0/0': {
+            'ip': '10.10.10.35',
+            'mask': '255.255.255.240'
+         }
+}
