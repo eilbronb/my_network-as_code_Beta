@@ -8,3 +8,14 @@ name_server_2: 10.10.10.12
 ntp_server: 10.10.10.11
 username: admin1
 password: password123
+
+users: {
+      'admin2' : {
+          'privilege' : 15,
+          'password' : 'password123',
+      }
+      'admin3' : {
+          'privileges' : 15,
+          'password' : 'password123',
+        }
+  }
