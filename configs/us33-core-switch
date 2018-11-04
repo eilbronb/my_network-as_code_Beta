@@ -31,6 +31,11 @@ interface loopback10
 ip address 105.101.101.101 255.255.255.255
 no shut
 
+interface ethernet0/0
+ip address 10.10.10.35 255.255.255.240
+negotiation auto
+no shut
+
 boot-start-marker
 boot-end-marker
 !
