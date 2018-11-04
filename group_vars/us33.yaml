@@ -14,8 +14,8 @@ users: {
           'privilege' : 15,
           'password' : 'password123',
       }
-      'admin3' : {
-          'privileges' : 15,
-          'password' : 'password123',
-        }
+      # 'admin3' : {
+      #     'privileges' : 15,
+      #     'password' : 'password123',
+      #   }
   }
