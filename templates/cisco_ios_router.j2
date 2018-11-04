@@ -29,7 +29,7 @@ ntp server {{ key }}{% if value['prefer'] == true %} prefer {% endif %}
 
 {% for key, value in loopback_interfaces.items() %}
 interface loopback{{ key }}
-ip address {{ key[ip] }} {{ key[mask] }}
+ip address {{ key.ip }} {{ key.ip }}
 no shut
 {% endfor %}
 
