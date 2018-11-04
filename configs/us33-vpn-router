@@ -17,6 +17,8 @@ ip name_server 10.10.10.12
 ntp server 10.10.10.11
 username admin1 privilege 15 secret password123
 
+username admin2 privilege 15 password 0 password123
+
 boot-start-marker
 boot-end-marker
 !
