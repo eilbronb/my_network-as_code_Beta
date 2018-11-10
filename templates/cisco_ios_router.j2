@@ -27,18 +27,22 @@ ntp server {{ key }}{% if value['prefer'] == true %} prefer {% endif %}
 
 {% endfor %}
 
+{% if loopback_interfaces is defined %}
 {% for key, value in loopback_interfaces.items() %}
 interface loopback{{ key }}
 ip address {{ value['ip'] }} {{ value['mask'] }}
 no shut
 {% endfor %}
+{% endif %}
 
+{% if Ethernet_Interfaces is defined %}
 {% for key, value in Ethernet_Interfaces.items() %}
 interface {{ key }}
 ip address {{ value['ip']}} {{ value['mask'] }}
 negotiation auto
 no shut
 {% endfor %}
+{% endif %}
 
 boot-start-marker
 boot-end-marker
