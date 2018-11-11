@@ -5,21 +5,21 @@
 
 
 loopback_interfaces: {
-  32 : {
+  32: {
      'ip': '105.99.99.99/32',
      'description': 'SCS9 Customer VPN'
     },
- 132 : {
+ 132: {
       'ip': '105.101.101.101/32',
      'description': 'SCS9 Admin VPN'
   }
 }
 
 tunnel_interfaces : {
- 32 : {
+ 32: {
     'description': 'SCS9 Customer VPN'
   },
-  132 : {
+  132: {
     'description': 'SCS9 Admin VPN'
   }
 }
