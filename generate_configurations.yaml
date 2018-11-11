@@ -5,5 +5,5 @@
     gather_facts: no
     tasks:
       - template:
-          src=templates/scs-templates.j2
+          src=templates/var-template.j2
           dest=configs/{{ inventory_hostname }}
