@@ -8,7 +8,7 @@ set network interface loopback units loopback.{{ key }} comment {{ key[descripti
 {% endif %}
 
 
-{{% if tunnel_interface is defined %}}
+{% if tunnel_interface is defined %}
 {% for key, value in tunnel_interface.items() %}
 set network interface tunnel units tunnel.{{ key }} comment {{ key[description] }}
 {% endfor %}
