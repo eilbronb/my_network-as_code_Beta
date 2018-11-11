@@ -1,9 +1,9 @@
 ---
   - name: Generate IOS Router Configurations
     connection: local
-    hosts: scs
+    hosts: SCS
     gather_facts: no
     tasks:
       - template:
-          src=templates/scs-templates.j2.j2
+          src=templates/scs-templates.j2
           dest=configs/{{ inventory_hostname }}
