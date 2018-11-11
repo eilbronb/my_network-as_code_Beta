@@ -1,25 +1,25 @@
-Loopback: 32
-Admin_Loopback: 132
-Tunnel: 32
-Admin_Tunnel: 132
+# Loopback: 32
+# Admin_Loopback: 132
+# Tunnel: 32
+# Admin_Tunnel: 132
 
 
 loopback_interfaces: {
- Loopback : {
+  32 : {
      'ip': '105.99.99.99/32',
      'description': '"SCS9 Customer VPN"'
     },
- Admin_Loopback : {
+ 132 : {
       'ip': '105.101.101.101/32',
      'description': '"SCS9 Admin VPN"'
   }
 }
 
 tunnel_interfaces : {
- Tunnel : {
+ 32 : {
     'description': '"SCS9 Customer VPN"'
   },
-  Admin_Tunnel : {
+  132 : {
     'description': '"SCS9 Admin VPN"'
   }
 }
