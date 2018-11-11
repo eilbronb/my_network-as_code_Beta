@@ -1,4 +1,4 @@
-{% if loopback_interface is defined %}
+{% if loopback_interfaces is defined %}
 {% for key, value in loopback_interface.items() %}
 set network interface loopback units loopback.{{ key }} adjust-tcp-mss enable no
 set network interface loopback units loopback.{{ key }} ip {{ value[ip] }}
@@ -8,7 +8,7 @@ set network interface loopback units loopback.{{ key }} comment {{ key[descripti
 {% endif %}
 
 
-{% if tunnel_interface is defined %}
+{% if tunnel_interfaces is defined %}
 {% for key, value in tunnel_interface.items() %}
 set network interface tunnel units tunnel.{{ key }} comment {{ key[description] }}
 {% endfor %}
