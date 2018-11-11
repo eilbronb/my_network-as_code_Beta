@@ -3,5 +3,5 @@ Admin_Loopback: 132
 Tunnel: 32
 Admin_Tunnel: 132
 
-Customer_dec: 'SCS9 Customer VPN"''
-Admin_dec: 'SCS9 Admin VPN"''
+Customer_dec: '"SCS9 Customer VPN"'
+Admin_dec: '"SCS9 Admin VPN"'
