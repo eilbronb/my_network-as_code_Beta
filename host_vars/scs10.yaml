@@ -5,7 +5,7 @@ Admin_Tunnel: 132
 
 
 loopback_interfaces: {
- { Loopback }: {
+ {{ Loopback }}: {
      'ip': '105.99.99.99/32',
      'description': '"SCS9 Customer VPN"'
     },
