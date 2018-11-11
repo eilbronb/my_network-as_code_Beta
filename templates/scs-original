@@ -1,0 +1,551 @@
+set network interface loopback units loopback.32 adjust-tcp-mss enable no
+set network interface loopback units loopback.32 ip 149.117.56.105/32
+set network interface loopback units loopback.32 interface-management-profile Mgmt
+set network interface loopback units loopback.32 comment "SCS9 Customer VPN"
+set network interface loopback units loopback.132 adjust-tcp-mss enable no
+set network interface loopback units loopback.132 ip 149.117.56.106/32
+set network interface loopback units loopback.132 interface-management-profile Mgmt
+set network interface loopback units loopback.132 comment "SCS9 Admin VPN"
+
+set network interface tunnel units tunnel.32 comment "SCS9 Customer VPN"
+set network interface tunnel units tunnel.132 comment "SCS9 Admin VPN"
+
+set network interface aggregate-ethernet ae1 layer3 units ae1.32 ipv6 neighbor-discovery router-advertisement enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.32 ndp-proxy enabled no
+set network interface aggregate-ethernet ae1 layer3 units ae1.32 adjust-tcp-mss enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.32 ip 10.8.44.254/24
+set network interface aggregate-ethernet ae1 layer3 units ae1.32 interface-management-profile Mgmt
+set network interface aggregate-ethernet ae1 layer3 units ae1.32 tag 32
+set network interface aggregate-ethernet ae1 layer3 units ae1.32 comment "SCS9 Data"
+set network interface aggregate-ethernet ae1 layer3 units ae1.132 ipv6 neighbor-discovery router-advertisement enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.132 ndp-proxy enabled no
+set network interface aggregate-ethernet ae1 layer3 units ae1.132 adjust-tcp-mss enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.132 tag 132
+set network interface aggregate-ethernet ae1 layer3 units ae1.132 comment "SCS9 IP Console"
+set network interface aggregate-ethernet ae1 layer3 units ae1.132 ip 10.8.45.254/24
+set network interface aggregate-ethernet ae1 layer3 units ae1.132 interface-management-profile Mgmt
+set network interface aggregate-ethernet ae1 layer3 units ae1.532 ipv6 neighbor-discovery router-advertisement enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.532 ndp-proxy enabled no
+set network interface aggregate-ethernet ae1 layer3 units ae1.532 adjust-tcp-mss enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.532 ip 10.8.123.174/28
+set network interface aggregate-ethernet ae1 layer3 units ae1.532 interface-management-profile Mgmt
+set network interface aggregate-ethernet ae1 layer3 units ae1.532 tag 532
+set network interface aggregate-ethernet ae1 layer3 units ae1.532 comment "SCS9 Admin-Clink"
+set network interface aggregate-ethernet ae1 layer3 units ae1.832 ipv6 neighbor-discovery router-advertisement enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.832 ndp-proxy enabled no
+set network interface aggregate-ethernet ae1 layer3 units ae1.832 adjust-tcp-mss enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.832 ip 10.8.125.174/28
+set network interface aggregate-ethernet ae1 layer3 units ae1.832 interface-management-profile Mgmt
+set network interface aggregate-ethernet ae1 layer3 units ae1.832 tag 832
+set network interface aggregate-ethernet ae1 layer3 units ae1.832 comment "SCS9 Admin"
+
+
+
+#Below lines already exists, just add the new scs
+set network virtual-router VR-Cloud interface [ ae1.800 ae1.880 tunnel.880 ae1.802 ae1.803 ae1.804 ae1.805 ae1.806 tunnel.104 tunnel.105 tunnel.888 tunnel.102 tunnel.106 tunnel.103 tunnel.107 ae1.807 tunnel.108 tunnel.109 ae1.808 ae1.809 ae1.830 tunnel.130 ae1.831 tunnel.131 tunnel.132 ae1.832 ]
+set network virtual-router VR-Main interface [ ae2 loopback.2 loopback.3 loopback.4 loopback.5 loopback.6 loopback.7 loopback.8 loopback.9 loopback.10 loopback.11 loopback.12 loopback.13 loopback.14 loopback.15 loopback.16 loopback.17 loopback.18 loopback.19 loopback.27 loopback.30 loopback.31 loopback.32 loopback.102 loopback.103 loopback.104 loopback.105 loopback.106 loopback.107 loopback.108 loopback.109 loopback.130 loopback.131 loopback.132 ]
+
+##
+
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 path-monitor enable no
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 path-monitor failure-condition any
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 path-monitor hold-time 2
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 nexthop next-vr VR-SCS9
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 bfd profile None
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 metric 10
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 destination 10.8.123.162/32
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 route-table unicast
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 path-monitor enable no
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 path-monitor failure-condition any
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 path-monitor hold-time 2
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 nexthop next-vr VR-SCS9
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 bfd profile None
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 metric 10
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 destination 10.8.123.163/32
+set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-2 route-table unicast
+
+set network virtual-router VR-SCS9 ecmp algorithm ip-modulo
+set network virtual-router VR-SCS9 protocol bgp routing-options graceful-restart enable yes
+set network virtual-router VR-SCS9 protocol bgp enable no
+set network virtual-router VR-SCS9 interface [ ae1.32 ae1.132 ae1.532 tunnel.32 ]
+set network virtual-router VR-SCS9 routing-table ip static-route Default path-monitor enable no
+set network virtual-router VR-SCS9 routing-table ip static-route Default path-monitor failure-condition any
+set network virtual-router VR-SCS9 routing-table ip static-route Default path-monitor hold-time 2
+set network virtual-router VR-SCS9 routing-table ip static-route Default nexthop next-vr VR-Main
+set network virtual-router VR-SCS9 routing-table ip static-route Default bfd profile None
+set network virtual-router VR-SCS9 routing-table ip static-route Default metric 10
+set network virtual-router VR-SCS9 routing-table ip static-route Default destination 0.0.0.0/0
+set network virtual-router VR-SCS9 routing-table ip static-route Default route-table unicast
+
+set network tunnel global-protect-gateway SCS9_GW-N ipsec third-party-client enable no
+set network tunnel global-protect-gateway SCS9_GW-N ipsec ipsec-crypto-profile GP-IPsec-Crypto-Profile
+set network tunnel global-protect-gateway SCS9_GW-N client dns-server primary 10.8.123.162
+set network tunnel global-protect-gateway SCS9_GW-N client wins-server primary 10.8.123.162
+set network tunnel global-protect-gateway SCS9_GW-N local-address interface loopback.32
+set network tunnel global-protect-gateway SCS9_GW-N local-address ip
+set network tunnel global-protect-gateway SCS9_GW-N tunnel-interface tunnel.32
+set network tunnel global-protect-gateway SCS9-Admin-GW-N ipsec third-party-client enable no
+set network tunnel global-protect-gateway SCS9-Admin-GW-N ipsec ipsec-crypto-profile GP-IPsec-Crypto-Profile
+set network tunnel global-protect-gateway SCS9-Admin-GW-N client dns-server primary 10.228.0.1
+set network tunnel global-protect-gateway SCS9-Admin-GW-N client dns-server secondary 10.228.0.2
+set network tunnel global-protect-gateway SCS9-Admin-GW-N client dns-suffix internal.synopsys.com
+set network tunnel global-protect-gateway SCS9-Admin-GW-N local-address interface loopback.132
+set network tunnel global-protect-gateway SCS9-Admin-GW-N local-address ip
+set network tunnel global-protect-gateway SCS9-Admin-GW-N tunnel-interface tunnel.132
+
+set network dhcp interface ae1.32 relay ip server [ 10.8.123.162 10.8.123.163 ]
+set network dhcp interface ae1.32 relay ip enabled yes
+set network dhcp interface ae1.32 relay ipv6 enabled no
+set network dhcp interface ae1.132 relay ip server [ 10.8.123.162 10.8.123.163 ]
+set network dhcp interface ae1.132 relay ip enabled yes
+set network dhcp interface ae1.132 relay ipv6 enabled no
+
+#Below lines is an add
+set vsys vsys1 import network interface [ ae1 ae1.2 ae1.3 ae1.4 ae1.5 ae1.6 ae1.102 ae1.103 ae1.104 ae1.105 ae1.106 ae1.800 ae1.802 ae1.803 ae1.804 ae1.805 ae1.806 ae1.880 ae2 ethernet1/7 ethernet1/7.20 ethernet1/7.30 ethernet1/10 ethernet1/11 ethernet1/12 ethernet1/13 loopback loopback.2 loopback.5 loopback.102 loopback.105 tunnel tunnel.2 tunnel.5 tunnel.102 tunnel.103 tunnel.104 tunnel.105 tunnel.880 tunnel.888 vlan vlan.20 vlan.30 loopback.106 loopback.6 tunnel.6 tunnel.106 tunnel.3 tunnel.4 loopback.3 loopback.103 loopback.104 ae1.506 tunnel.1006 ae1.504 ae1.503 tunnel.1004 loopback.4 tunnel.2004 ethernet1/8 loopback.10 loopback.11 loopback.12 loopback.13 loopback.14 tunnel.10 tunnel.11 tunnel.12 tunnel.13 tunnel.14 ae1.10 ae1.11 ae1.12 ae1.13 ae1.14 loopback.15 loopback.16 loopback.17 loopback.18 loopback.19 loopback.27 tunnel.27 ae1.27 ae1.505 loopback.7 loopback.107 tunnel.7 tunnel.107 ae1.7 ae1.107 ae1.507 ae1.807 tunnel.1007 loopback.8 loopback.9 loopback.108 loopback.109 tunnel.8 tunnel.9 tunnel.108 tunnel.109 ae1.8 ae1.9 ae1.108 ae1.109 ae1.508 ae1.509 ae1.808 ae1.809 tunnel.30 ae1.830 ae1.30 loopback.30 ae1.130 ae1.530 loopback.130 tunnel.130 loopback.31 ae1.31 ae1.131 tunnel.31 ae1.531 ae1.831 loopback.131 tunnel.131 tunnel.1009 loopback.32 loopback.132 tunnel.32 tunnel.132 ae1.32 ae1.132 ae1.532 ae1.832 ]
+
+set vsys vsys1 zone L3-External network layer3 [ ae2 loopback.2 loopback.102 loopback.5 loopback.105 loopback.106 loopback.6 loopback.3 loopback.103 loopback.104 loopback.4 loopback.10 loopback.11 loopback.12 loopback.13 loopback.14 loopback.15 loopback.16 loopback.17 loopback.18 loopback.19 loopback.27 loopback.7 loopback.107 loopback.8 loopback.9 loopback.108 loopback.109 loopback.30 loopback.130 loopback.31 loopback.131 loopback.32 loopback.132 ]
+###
+set vsys vsys1 zone L3-SCS9-Admin network layer3 [ tunnel.132 ae1.532 ae1.832 ]
+set vsys vsys1 zone L3-SCS9-Admin enable-user-identification yes
+set vsys vsys1 zone L3-SCS9-Office network layer3 tunnel.32
+set vsys vsys1 zone L3-SCS9-Office enable-user-identification yes
+set vsys vsys1 zone L3-SCS9-Data network layer3 ae1.32
+set vsys vsys1 zone L3-SCS9-Data enable-user-identification yes
+set vsys vsys1 zone L3-SCS9-IPConsole network layer3 ae1.132
+set vsys vsys1 zone L3-SCS9-IPConsole enable-user-identification yes
+
+#Below line is an address
+
+set vsys vsys1 rulebase security rules "Mgmt Vcenter to Customer Admin" to [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin to VCenter" from [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin to ELK Cluster" from [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin to Mgmt NTP" from [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin to Mgmt Syslog" from [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin Intrazone" to [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin Intrazone" from [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin VNC" to [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin VNC" from [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin Intrazone Deny" to [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin Intrazone Deny" from [ L3-BOEING-Admin L3-BRCM-Admin L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin to-from Deny" to [ L3-BOEING-Admin L3-BRCM-Admin L3-CloudMgmt L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPS-Tunnel L3-SNPSBU-Admin L3-SWS-Admin ]
+set vsys vsys1 rulebase security rules "Customer Admin to-from Deny" from [ L3-BOEING-Admin L3-BRCM-Admin L3-CloudMgmt L3-GROQ-Admin L3-PREF-Admin L3-SCS5-Admin L3-SCS6-Admin L3-SCS7-Admin L3-SCS8-Admin L3-SCS9-Admin L3-SMSG-Admin L3-SNPS-Tunnel L3-SNPSBU-Admin L3-SWS-Admin ]
+
+##
+
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" to [ L3-SCS9-Data L3-SCS9-Office ]
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" from [ L3-SCS9-Data L3-SCS9-Office ]
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" source any
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" destination any
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" category any
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" application any
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" service any
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" action allow
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Office to-from Data" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" to L3-SCS9-Data
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" from L3-SCS9-Admin
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" source "SCS9 Clink Net"
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" destination any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" category any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" application [ mount nfs ping portmapper rpc ssh ypserv ]
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" service application-default
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" action allow
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Data" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" to L3-SCS9-Admin
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" from L3-SCS9-Data
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" source any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" destination "SCS9 Clink Net"
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" category any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" application [ dhcp dns ntp portmapper rpc tftp ypserv ]
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" service application-default
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" action allow
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" to L3-SCS9-Admin
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" from L3-SCS9-Data
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" source any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" destination "SCS9 Clink Net"
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" category any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" application ssl
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" service TCP-9200
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" action allow
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Data to Admin-Clink Elk" description "SCS9 Data machines to send logs to Elk forwarder in Admin"
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" to L3-SCS9-IPConsole
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" from L3-SCS9-Admin
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" source "SCS9 Clink Net"
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" destination any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" category any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" application ssl
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" service Port-5900
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" action allow
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" description "- Allow ssl on port 5900 for Supermicro console service from Admin-Clink to IP-Console network"
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Con SMCI" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" to L3-SCS9-IPConsole
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" from L3-SCS9-Admin
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" source "SCS9 Clink Net"
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" destination any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" category any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" application [ dhcp ping rmcp ssh ssl vnc web-browsing ]
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" service application-default
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" action allow
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to IPCon" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" to L3-SCS9-Admin
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" from L3-SCS9-IPConsole
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" source any
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" destination "SCS9 Clink Net"
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" source-user any
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" category any
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" application [ dhcp dns ntp tftp ]
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" service application-default
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" action allow
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 IP Con to Admin-Clink" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" to [ L3-SCS9-Data L3-SCS9-IPConsole L3-SCS9-Office ]
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" from [ L3-SCS9-Data L3-SCS9-IPConsole L3-SCS9-Office ]
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" source any
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" destination any
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" category any
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" application any
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" service any
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" action allow
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" rule-type intrazone
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Intrazone" tag SCS9
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" to L3-External
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" from L3-SCS9-Data
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" source any
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" destination sftp.synopsys.com
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" category any
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" application [ enhanced-file-transfer ssh ]
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" service application-default
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" tag [ External SCS9 ]
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" action allow
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Data to SFTP" description "Allow access to SFTP"
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" to L3-External
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" from L3-SCS9-Data
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" source any
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" destination any
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" category Solvnet-Okta
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" application okta
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" service application-default
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" action allow
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Data to Okta" tag [ External SCS9 ]
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" to L3-External
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" from L3-SCS9-Data
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" source any
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" destination any
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" category Solvnet
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" application [ ssl web-browsing ]
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" service application-default
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" tag [ External SCS9 ]
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" action allow
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Data to Solvnet" description "Allow access to Solvnet"
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" to L3-External
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" from L3-SCS9-Admin
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" source SCS9_DNS
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" destination [ 8.8.4.4 8.8.8.8 ]
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" category any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" application dns
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" service application-default
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" tag [ External SCS9 ]
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" action allow
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Admin-Clink to Internet" description "- Allow SCS9 Admin-Clink to resolve DNS against 8.8.8.8 and 8.8.4.4"
+set vsys vsys1 rulebase security rules "SCS9 Deny" to any
+set vsys vsys1 rulebase security rules "SCS9 Deny" from [ L3-SCS9-Admin L3-SCS9-Data L3-SCS9-IPConsole L3-SCS9-Office ]
+set vsys vsys1 rulebase security rules "SCS9 Deny" source any
+set vsys vsys1 rulebase security rules "SCS9 Deny" destination any
+set vsys vsys1 rulebase security rules "SCS9 Deny" source-user any
+set vsys vsys1 rulebase security rules "SCS9 Deny" category any
+set vsys vsys1 rulebase security rules "SCS9 Deny" application any
+set vsys vsys1 rulebase security rules "SCS9 Deny" service any
+set vsys vsys1 rulebase security rules "SCS9 Deny" hip-profiles any
+set vsys vsys1 rulebase security rules "SCS9 Deny" action deny
+set vsys vsys1 rulebase security rules "SCS9 Deny" log-start yes
+set vsys vsys1 rulebase security rules "SCS9 Deny" rule-type interzone
+set vsys vsys1 rulebase security rules "SCS9 Deny" tag SCS9
+
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" source-translation dynamic-ip-and-port translated-address "Mgmt NAT"
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" to L3-External
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" from L3-SCS9-Data
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" source 10.8.44.0/24
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" destination any
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" tag SCS9
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" service any
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" description "SCS9 data to Internet
+- sftp.synopsys.com
+- solvnet"
+set vsys vsys1 rulebase nat rules "SCS9 Data to EXT" to-interface ae2
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" to L3-External
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" from L3-SCS9-Admin
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" source SCS9_DNS
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" destination [ 8.8.4.4 8.8.8.8 ]
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" service any
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" source-translation dynamic-ip-and-port translated-address "Mgmt NAT"
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" to-interface ae2
+set vsys vsys1 rulebase nat rules "SCS9 Admin Clink to EXT" tag SCS9
+
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config local-address ip ipv4 149.117.56.105/32
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config local-address interface loopback.32
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config client-auth SCS9_Portal-Auth os Any
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config client-auth SCS9_Portal-Auth authentication-profile SCS9-SAML
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config client-auth SCS9_Portal-Auth authentication-message "Enter login credentials"
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config custom-login-page factory-default
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config custom-home-page factory-default
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config custom-help-page factory-default
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal portal-config ssl-tls-service-profile SCS9-Customer-VPN
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth hip-collection max-wait-time 20
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth hip-collection collect-hip-data yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gateways external list SCS9-GW fqdn scs9.synopsys.com
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gateways external list SCS9-GW priority-rule Any priority 1
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gateways external list SCS9-GW manual no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gateways external cutoff-time 5
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth authentication-override generate-cookie no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth agent-ui welcome-page page scs9-customer-welcome-page
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth agent-ui max-agent-user-overrides 0
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth agent-ui agent-user-override-timeout 0
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth source-user any
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth os any
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config connect-method value on-demand
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config refresh-config-interval value 24
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config agent-user-override value allowed
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config client-upgrade value manual
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config use-sso value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config logout-remove-sso value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config krb-auth-fail-fallback value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config retry-tunnel value 30
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config retry-timeout value 5
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config enforce-globalprotect value no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config captive-portal-exception-timeout value 0
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config traffic-blocking-notification-delay value 15
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config display-traffic-blocking-notification-msg value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config traffic-blocking-notification-msg value '<div style="font-family:'Helvetica Neue';"><h1 style="color:red;text-align:center; margin: 0; font-size: 30px;">Notice</h1><p style="margin: 0;font-size: 15px; line-height: 1.2em;">To access the network, you must first connect to GlobalProtect.</p></div>'
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config allow-traffic-blocking-notification-dismissal value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config display-captive-portal-detection-msg value no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config captive-portal-detection-msg value '<div style="font-family:'Helvetica Neue';"><h1 style="color:red;text-align:center; margin: 0; font-size: 30px;">Captive Portal Detected</h1><p style="margin: 0; font-size: 15px; line-height: 1.2em;">GlobalProtect has temporarily permitted network access for you to connect to the Internet. Follow instructions from your internet provider.</p><p style="margin: 0; font-size: 15px; line-height: 1.2em;">If you let the connection time out, open GlobalProtect and click Connect to try again.</p></div>'
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config certificate-store-lookup value user-and-machine
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config scep-certificate-renewal-period value 7
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config retain-connection-smartcard-removal value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config enable-advanced-view value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config enable-do-not-display-this-welcome-page-again value no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config rediscover-network value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config resubmit-host-info value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config can-change-portal value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config can-continue-if-portal-cert-invalid value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config show-agent-icon value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config user-switch-tunnel-rename-timeout value 0
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config pre-logon-tunnel-rename-timeout value -1
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config show-system-tray-notifications value no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config max-internal-gateway-connection-attempts value 0
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config portal-timeout value 5
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config connect-timeout value 5
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config receive-timeout value 30
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config enforce-dns value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config flush-dns value no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config proxy-multiple-autodetect value no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config wsc-autodetect value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config mfa-enabled value no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config mfa-listening-port value 4501
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config mfa-notification-msg value "You have attempted to access a protected resource that requires additional authentication. Proceed to authenticate at"
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth gp-app-config config ipv6-preferred value yes
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth save-user-credentials 1
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth portal-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth manual-only-gateway-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth internal-gateway-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth auto-discovery-external-gateway-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config configs SCS9_Portal-Agent-Auth mdm-enrollment-port 443
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal client-config agent-user-override-key -AQ==9EIXqBFzhp4IZxdTxSVTZG/12Vs=iH76LFLerpHJ1S680bBopQ==
+set vsys vsys1 global-protect global-protect-portal SCS9_Portal satellite-config client-certificate local
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config local-address ip ipv4 149.117.56.106/32
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config local-address interface loopback.132
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config client-auth SCS9-Admin-Portal-Auth os Any
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config client-auth SCS9-Admin-Portal-Auth authentication-profile SCS9-admin-SAML
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config client-auth SCS9-Admin-Portal-Auth authentication-message "Enter login credentials"
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config custom-login-page factory-default
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config custom-home-page factory-default
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config custom-help-page factory-default
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal portal-config ssl-tls-service-profile SCS9-Admin-VPN
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth hip-collection max-wait-time 20
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth hip-collection collect-hip-data yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gateways external list SCS9-Admin_GW fqdn scs9-admin.synopsys.com
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gateways external list SCS9-Admin_GW priority-rule Any priority 1
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gateways external list SCS9-Admin_GW manual no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gateways external cutoff-time 5
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth authentication-override generate-cookie no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth agent-ui welcome-page page scs9-admin-welcome-page
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth agent-ui max-agent-user-overrides 0
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth agent-ui agent-user-override-timeout 0
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth source-user any
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth os any
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config connect-method value on-demand
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config refresh-config-interval value 24
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config agent-user-override value allowed
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config client-upgrade value manual
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config use-sso value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config logout-remove-sso value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config krb-auth-fail-fallback value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config retry-tunnel value 30
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config retry-timeout value 5
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config enforce-globalprotect value no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config captive-portal-exception-timeout value 0
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config traffic-blocking-notification-delay value 15
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config display-traffic-blocking-notification-msg value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config traffic-blocking-notification-msg value '<div style="font-family:'Helvetica Neue';"><h1 style="color:red;text-align:center; margin: 0; font-size: 30px;">Notice</h1><p style="margin: 0;font-size: 15px; line-height: 1.2em;">To access the network, you must first connect to GlobalProtect.</p></div>'
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config allow-traffic-blocking-notification-dismissal value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config display-captive-portal-detection-msg value no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config captive-portal-detection-msg value '<div style="font-family:'Helvetica Neue';"><h1 style="color:red;text-align:center; margin: 0; font-size: 30px;">Captive Portal Detected</h1><p style="margin: 0; font-size: 15px; line-height: 1.2em;">GlobalProtect has temporarily permitted network access for you to connect to the Internet. Follow instructions from your internet provider.</p><p style="margin: 0; font-size: 15px; line-height: 1.2em;">If you let the connection time out, open GlobalProtect and click Connect to try again.</p></div>'
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config certificate-store-lookup value user-and-machine
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config scep-certificate-renewal-period value 7
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config retain-connection-smartcard-removal value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config enable-advanced-view value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config enable-do-not-display-this-welcome-page-again value no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config rediscover-network value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config resubmit-host-info value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config can-change-portal value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config can-continue-if-portal-cert-invalid value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config show-agent-icon value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config user-switch-tunnel-rename-timeout value 0
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config pre-logon-tunnel-rename-timeout value -1
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config show-system-tray-notifications value no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config max-internal-gateway-connection-attempts value 0
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config portal-timeout value 5
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config connect-timeout value 5
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config receive-timeout value 30
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config enforce-dns value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config flush-dns value no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config proxy-multiple-autodetect value no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config wsc-autodetect value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config mfa-enabled value no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config mfa-listening-port value 4501
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config mfa-notification-msg value "You have attempted to access a protected resource that requires additional authentication. Proceed to authenticate at"
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth gp-app-config config ipv6-preferred value yes
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth save-user-credentials 1
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth portal-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth manual-only-gateway-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth internal-gateway-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth auto-discovery-external-gateway-2fa no
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal client-config configs SCS9-Admin-Portal-Agent-Auth mdm-enrollment-port 443
+set vsys vsys1 global-protect global-protect-portal SCS9-Admin_Portal satellite-config client-certificate local
+
+vsys1 global-protect global-protect-gateway SCS9_GW roles default login-lifetime days 30
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW roles default inactivity-logout hours 3
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW roles default disconnect-on-idle minutes 180
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW client-auth SCS9_GW-Auth authentication-profile SCS9-SAML
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW client-auth SCS9_GW-Auth os Any
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW client-auth SCS9_GW-Auth authentication-message "Enter login credentials"
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client authentication-override generate-cookie no
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client split-tunneling access-route 10.8.44.0/24
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client split-tunneling exclude-access-route
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client source-user any
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client authentication-server-ip-pool
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client ip-pool 192.168.1.0/24
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client os any
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client retrieve-framed-ip-address no
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel-configs SCS9_GW-Agent_Client no-direct-access-to-local-network no
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW ssl-tls-service-profile SCS9-Customer-VPN
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW tunnel-mode yes
+set vsys vsys1 global-protect global-protect-gateway SCS9_GW remote-user-tunnel tunnel.32
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW roles default login-lifetime days 30
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW roles default inactivity-logout hours 3
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW roles default disconnect-on-idle minutes 180
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW client-auth SCS9-Admin-GW-Auth authentication-profile SCS9-admin-SAML
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW client-auth SCS9-Admin-GW-Auth os Any
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW client-auth SCS9-Admin-GW-Auth authentication-message "Enter login credentials"
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client authentication-override generate-cookie no
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client split-tunneling access-route 10.8.125.160/28
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client split-tunneling exclude-access-route
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client source-user any
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client authentication-server-ip-pool
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client ip-pool 10.8.124.160/28
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client os any
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client retrieve-framed-ip-address no
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel-configs SCS9-Admin_GW-Agent-Client no-direct-access-to-local-network no
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW ssl-tls-service-profile SCS9-Admin-VPN
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW tunnel-mode yes
+set vsys vsys1 global-protect global-protect-gateway SCS9-Admin-GW remote-user-tunnel tunnel.132
+
+vsys1 address "SCS9 Clink Net" ip-netmask 10.8.123.160/28
+set vsys vsys1 address "SCS9 Clink Net" description "SCS9 Clink Net"
+set vsys vsys1 address "SCS9 Clink Net" tag SCS9
+set vsys vsys1 address scs9-admin.synopsys.com ip-netmask 149.117.56.106/32
+set vsys vsys1 address scs9-admin.synopsys.com tag SCS9
+set vsys vsys1 address scs9-admin.synopsys.com description scs9-admin.synopsys.com
+set vsys vsys1 address scs9.synopsys.com ip-netmask 149.117.56.105/32
+set vsys vsys1 address scs9.synopsys.com tag SCS9
+set vsys vsys1 address scs9.synopsys.com description scs9.synopsys.com
+set vsys vsys1 address SCS9_DNS1 ip-netmask 10.8.123.162/32
+set vsys vsys1 address SCS9_DNS1 tag SCS9
+set vsys vsys1 address SCS9_DNS1 description SCS9_DNS1
+set vsys vsys1 address SCS9_DNS2 ip-netmask 10.8.123.163/32
+set vsys vsys1 address SCS9_DNS2 tag SCS9
+set vsys vsys1 address SCS9_DNS2 description SCS9_DNS2
+
+vsys1 tag SCS9 color color10
+set vsys vsys1 tag SCS9 comments SCS9
+
+
+##BElow line is an add
+set vsys vsys1 address-group "GP VPN GW IPs" static [ badc-cloud-pan-1-ext scs-brcm-admin.synopsys.com scs-brcm.synopsys.com scs-snpsbu-admin.synopsys.com scs1-admin.synopsys.com scs1.synopsys.com scs2-admin.synopsys.com scs2.synopsys.com scs3-admin.synopsys.com scs3.synopsys.com scs4-admin.synopsys.com scs4.synopsys.com scs5-admin.synopsys.com scs5.synopsys.com scs6-admin.synopsys.com scs6.synopsys.com scs7-admin.synopsys.com scs7.synopsys.com scs8-admin.synopsys.com scs8.synopsys.com scs9-admin.synopsys.com scs9.synopsys.com scsvuc1.synopsys.com scsvuc2.synopsys.com scsvuc3.synopsys.com snpsdemo.synopsys.com sws.synopsys.com ]
+
+##
+set vsys vsys1 address-group SCS9_DNS static [ SCS9_DNS1 SCS9_DNS2 ]
+set vsys vsys1 address-group SCS9_DNS tag SCS9
+set vsys vsys1 address-group SCS9_DNS description SCS9_DNS
+
+set vsys vsys1 ssl-tls-service-profile SCS9-Customer-VPN protocol-settings min-version tls1-2
+set vsys vsys1 ssl-tls-service-profile SCS9-Customer-VPN protocol-settings max-version max
+set vsys vsys1 ssl-tls-service-profile SCS9-Customer-VPN certificate scs9_cert
+set vsys vsys1 ssl-tls-service-profile SCS9-Admin-VPN protocol-settings min-version tls1-2
+set vsys vsys1 ssl-tls-service-profile SCS9-Admin-VPN protocol-settings max-version max
+set vsys vsys1 ssl-tls-service-profile SCS9-Admin-VPN certificate scs9-admin_cert
+
+set vsys vsys1 authentication-profile SCS9-SAML multi-factor-auth mfa-enable no
+set vsys vsys1 authentication-profile SCS9-SAML method saml-idp server-profile scs9.synopsys.com
+set vsys vsys1 authentication-profile SCS9-SAML method saml-idp attribute-name-username username
+set vsys vsys1 authentication-profile SCS9-SAML allow-list all
+set vsys vsys1 authentication-profile SCS9-SAML username-modifier %USERINPUT%
+set vsys vsys1 authentication-profile SCS9-admin-SAML multi-factor-auth mfa-enable no
+set vsys vsys1 authentication-profile SCS9-admin-SAML method saml-idp server-profile scs9-admin.synopsys.com
+set vsys vsys1 authentication-profile SCS9-admin-SAML method saml-idp attribute-name-username username
+set vsys vsys1 authentication-profile SCS9-admin-SAML allow-list all
+set vsys vsys1 authentication-profile SCS9-admin-SAML username-modifier %USERINPUT%
