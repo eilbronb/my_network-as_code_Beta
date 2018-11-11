@@ -1,0 +1,15 @@
+Loopback: 32
+Admin_Loopback: 132
+Tunnel: 32
+Admin_Tunnel: 132
+Data_aggregate_interface: 32
+Console_aggregate_interface: 132
+Clink_aggregate_interface: 532
+Admin_aggregate_interface: 832
+
+Customer_dec: '"SCS9 Customer VPN"'
+Admin_dec: '"SCS9 Admin VPN"'
+SCS_Data_dcs: '"SCS9 Data"'
+SCS_Console_dec: '"SCS9 IP Console"'
+SCS_Clink_dec: '"SCS9 Admin-Clink"'
+SCS_Admin_dec: '"SCS9 Admin"'
