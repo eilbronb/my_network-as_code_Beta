@@ -15,7 +15,7 @@ loopback_interfaces: {
   }
 }
 
-tunnel_interface : {
+tunnel_interfaces : {
  Tunnel : {
     'description': '"SCS9 Customer VPN"'
   },
