@@ -3,13 +3,13 @@
 set network interface loopback units loopback.{{ key }} adjust-tcp-mss enable no
 #set network interface loopback units loopback.{{ key }} ip {{ value.ip }}
 set network interface loopback units loopback.{{ key }} interface-management-profile Mgmt
-set network interface loopback units loopback.{{ key }} comment {{ value[description] }}
+set network interface loopback units loopback.{{ key }} comment {{ value.description }}
 {% endfor %}
 {% endif %}
 
 
 {% if tunnel_interfaces is defined %}
 {% for key, value in tunnel_interfaces.items() %}
-set network interface tunnel units tunnel.{{ key }} comment {{ value[description] }}
+set network interface tunnel units tunnel.{{ key }} comment {{ value.description. }}
 {% endfor %}
 {% endif %}
