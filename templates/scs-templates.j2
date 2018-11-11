@@ -13,3 +13,15 @@ set network interface loopback units loopback.{{ key }} comment {{ value['descri
 set network interface tunnel units tunnel.{{ key }} comment {{ value['description'] }}
 {% endfor %}
 {% endif %}
+
+{% if aggregate_interface is defined  %}
+{% for key, value in aggregate_interface.items() %}
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} ipv6 neighbor-discovery router-advertisement enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} ndp-proxy enabled no
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} adjust-tcp-mss enable no
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} ip {{ value['ip'] }}
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} interface-management-profile Mgmt
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} tag {{ key }}
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} comment {{ value['description'] }}
+{% endfor %}
+{% endif %}

@@ -20,22 +20,22 @@ tunnel_interfaces : {
   }
 }
 
-# aggregate_interface : {
-#  32: {
-#     'ip': '10.8.44.254/24',
-#     'description': '"SCS9 Data"'
-#  },
-#   132: {
-#     'description': '"SCS9 IP Console"',
-#      'ip': '10.8.44.254/24'
-#   },
-#  532: {
-#   'description': '"SCS9 Admin-Clink"',
-#   'ip': '10.8.44.254/24'
-#
-#  },
-#  832: {
-#  'description': '"SCS9 Admin"',
-#  'ip': '10.8.44.254/24'
-#  }
-# }
+aggregate_interface : {
+  {{ Data_aggregate_interface }}: {
+     'ip': '10.8.44.254/24',
+     'description': {{ SCS_Data_dcs }}
+  },
+  {{ Console_aggregate_interface }}: {
+     'description': {{ SCS_Console_dec }},
+      'ip': '10.8.44.254/24'
+   },
+  {{ Clink_aggregate_interface }}: {
+   'description': {{ SCS_Clink_dec }},
+   'ip': '10.8.44.254/24'
+
+  },
+  {{ Admin_aggregate_interface }}: {
+  'description': {{ SCS_Admin_dec }},
+  'ip': '10.8.44.254/24'
+  }
+}

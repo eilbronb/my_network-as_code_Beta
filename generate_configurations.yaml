@@ -6,4 +6,5 @@
     tasks:
       - template:
           src=templates/scs-templates.j2
-          dest=configs/{{ inventory_hostname }}
+          #dest=configs/{{ inventory_hostname }}
+          dest=host_vars/{{ inventory_hostname }}
