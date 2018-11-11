@@ -1,7 +1,7 @@
 ---
   - name: Generate IOS Router Configurations
     connection: local
-    hosts: SCS
+    hosts: SCSVARS
     gather_facts: no
     tasks:
       - template:
