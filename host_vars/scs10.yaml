@@ -5,11 +5,11 @@ Admin_Loopback: 132
 
 
 loopback_interfaces: {
-  { Loopback }: {
+   $Loopback: {
      'ip': '105.99.99.99/32',
      'description': '"SCS9 Customer VPN"'
     },
- { Admin_Loopback } : {
+  $Admin_Loopback : {
       'ip': '105.101.101.101/32',
      'description': '"SCS9 Admin VPN"'
   }
