@@ -1,7 +1,7 @@
 {% if loopback_interfaces is defined %}
 {% for key, value in loopback_interfaces.items() %}
 set network interface loopback units loopback.{{ key }} adjust-tcp-mss enable no
-#set network interface loopback units loopback.{{ key }} ips {{ value.ip }}
+#set network interface loopback units loopback.{{ key }} ip {{ value.ip }}
 set network interface loopback units loopback.{{ key }} interface-management-profile Mgmt
 set network interface loopback units loopback.{{ key }} comment {{ key[description] }}
 {% endfor %}
