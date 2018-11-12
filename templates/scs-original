@@ -47,6 +47,7 @@ set network virtual-router VR-Main interface [ ae2 loopback.2 loopback.3 loopbac
 
 ##
 
+
 set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 path-monitor enable no
 set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 path-monitor failure-condition any
 set network virtual-router VR-Main routing-table ip static-route SCS9-DNS-1 path-monitor hold-time 2
