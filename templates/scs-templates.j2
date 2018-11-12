@@ -34,7 +34,7 @@ set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_N
 set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} nexthop next-vr {{ value['VR'] }}
 set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} bfd profile None
 set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} metric 10
-set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} destination {{ value['DNS-1_IP'] }}
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} destination {{ value['DNS_IP'] }}
 set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} route-table unicast
 {% endfor %}
 {% endif %}
