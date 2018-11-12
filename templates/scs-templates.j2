@@ -22,6 +22,6 @@ set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} adjust-t
 set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} ip {{ value['ip'] }}
 set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} interface-management-profile Mgmt
 set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} tag {{ key }}
-set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} comment {{ value['description'] }}
+set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} comment "{{ value['description'] }}"
 {% endfor %}
 {% endif %}
