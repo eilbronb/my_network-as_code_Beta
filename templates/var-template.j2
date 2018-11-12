@@ -23,19 +23,19 @@ tunnel_interfaces : {
 aggregate_interface : {
   {{ Data_aggregate_interface }}: {
      'ip': '10.8.44.254/24',
-     'description': '"'{{ SCS_Data_dcs }}'"'
+     'description': {{ SCS_Data_dcs }}
   },
   {{ Console_aggregate_interface }}: {
-     'description': '"'{{ SCS_Console_dec }}'"',
+     'description': {{ SCS_Console_dec }},
       'ip': '10.8.44.254/24'
    },
   {{ Clink_aggregate_interface }}: {
-   'description': '"'{{ SCS_Clink_dec }}'"',
+   'description': {{ SCS_Clink_dec }},
    'ip': '10.8.44.254/24'
 
   },
   {{ Admin_aggregate_interface }}: {
-  'description': '"'{{ SCS_Admin_dec }}'"',
+  'description': {{ SCS_Admin_dec }},
   'ip': '10.8.44.254/24'
   }
 }
