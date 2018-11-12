@@ -8,8 +8,8 @@ Clink_aggregate_interface: 532
 Admin_aggregate_interface: 832
 DNS1_Name: 'SCS9-DNS-1'
 DNS2_Name: 'SCS9-DNS-2'
-DNS1_IP: '10.8.123.162'
-DNS2_IP: '10.8.123.163'
+DNS1_IP: '10.8.123.162/32'
+DNS2_IP: '10.8.123.163/32'
 VR: 'VR-SCS9'
 
 Customer_dec: '"SCS9 Customer VPN"'
