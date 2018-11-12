@@ -3,7 +3,7 @@
 loopback_interfaces: {
    {{ Loopback }}: {
      'ip': '105.99.99.99/32',
-     'description': {{ Customer_dec }}
+     'description': {{ '"'Customer_dec'"' }}
     },
   {{ Admin_Loopback }} : {
       'ip': '105.101.101.101/32',
@@ -16,7 +16,7 @@ tunnel_interfaces : {
     'description': {{ Customer_dec }}
   },
   {{ Admin_Tunnel }}: {
-    'description': {{  Admin_dec }}
+    'description': {{ Admin_dec}}
   }
 }
 
