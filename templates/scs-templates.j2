@@ -36,3 +36,5 @@ set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_N
 set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} metric 10
 set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} destination {{ value['DNS_dst_IP'] }}
 set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} route-table unicast
+{% endfor %}
+{% endif %}
