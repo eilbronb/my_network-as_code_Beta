@@ -7,35 +7,35 @@ loopback_interfaces: {
     },
   {{ Admin_Loopback }} : {
       'ip': '105.101.101.101/32',
-     'description': {{  Admin_dec }}
+     'description': {{  '"'Admin_dec'"' }}
   }
 }
 
 tunnel_interfaces : {
  {{ Tunnel }}: {
-    'description': {{ Customer_dec }}
+    'description': {{ '"'Customer_dec'"' }}
   },
   {{ Admin_Tunnel }}: {
-    'description': {{ Admin_dec}}
+    'description': {{ '"'Admin_dec'"' }}
   }
 }
 
 aggregate_interface : {
   {{ Data_aggregate_interface }}: {
      'ip': '10.8.44.254/24',
-     'description': {{ SCS_Data_dcs }}
+     'description': {{ '"'SCS_Data_dcs'"' }}
   },
   {{ Console_aggregate_interface }}: {
-     'description': {{ SCS_Console_dec }},
+     'description': {{ '"'SCS_Console_dec'"' }},
       'ip': '10.8.44.254/24'
    },
   {{ Clink_aggregate_interface }}: {
-   'description': {{ SCS_Clink_dec }},
+   'description': {{ '"'SCS_Clink_dec'"' }},
    'ip': '10.8.44.254/24'
 
   },
   {{ Admin_aggregate_interface }}: {
-  'description': {{ SCS_Admin_dec }},
+  'description': {{ '"'SCS_Admin_dec'"' }},
   'ip': '10.8.44.254/24'
   }
 }
