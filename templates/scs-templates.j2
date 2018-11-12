@@ -24,3 +24,15 @@ set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} tag {{ k
 set network interface aggregate-ethernet ae1 layer3 units ae1.{{ key }} comment "{{ value['description'] }}"
 {% endfor %}
 {% endif %}
+
+
+{% if static_route_for_DNS is defined %}
+{% for key, value in static_route_for_DNS.items() %}
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} path-monitor enable no
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} path-monitor failure-condition any
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} path-monitor hold-time 2
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} nexthop next-vr {{ value['VR'] }}
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} bfd profile None
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} metric 10
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} destination {{ value['DNS_dst_IP'] }}
+set network virtual-router VR-Main routing-table ip static-route {{ value['DNS_Name'] }} route-table unicast
