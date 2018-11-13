@@ -21,7 +21,7 @@ tunnel_interfaces : {
 }
 
 aggregate_interface : {
-  32: {
+ 32: {
      'ip': '10.8.44.254/24',
      'description': "SCS9 Data"
   },
@@ -38,4 +38,17 @@ aggregate_interface : {
   'description': "SCS9 Admin",
   'ip': '10.8.44.254/24'
   }
+}
+
+static_route_for_DNS: {
+ SCS9-DNS-1 : {
+     'DNS_Name': SCS9-DNS-1,
+     'DNS_IP' : 10.8.123.162,
+     'VR': VR-SCS9
+ },
+ SCS9-DNS-2 : {
+     'DNS_Name': SCS9-DNS-2,
+     'DNS_IP' : 10.8.123.163,
+     'VR': VR-SCS9
+ }
 }
