@@ -10,4 +10,3 @@ set network interface loopback units loopback.$Admin_Loopback comment "SCS9 Admi
 
 set network interface tunnel units tunnel.32 comment "SCS9 Customer VPN"
 set network interface tunnel units tunnel.132 comment "SCS9 Admin VPN"
-
