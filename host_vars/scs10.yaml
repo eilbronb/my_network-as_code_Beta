@@ -1,7 +1,4 @@
-Loopback: 32
-Admin_Loopback: 132
-#Tunnel: 32
-#Admin_Tunnel: 132
+
 
 
 loopback_interfaces: {
@@ -24,22 +21,22 @@ tunnel_interfaces : {
   }
 }
 
-# aggregate_interface : {
-#  32: {
-#     'ip': '10.8.44.254/24',
-#     'description': '"SCS9 Data"'
-#  },
-#   132: {
-#     'description': '"SCS9 IP Console"',
-#      'ip': '10.8.44.254/24'
-#   },
-#  532: {
-#   'description': '"SCS9 Admin-Clink"',
-#   'ip': '10.8.44.254/24'
-#
-#  },
-#  832: {
-#  'description': '"SCS9 Admin"',
-#  'ip': '10.8.44.254/24'
-#  }
-# }
+aggregate_interface : {
+ 32: {
+    'ip': '10.8.44.254/24',
+    'description': '"SCS9 Data"'
+ },
+  132: {
+    'description': '"SCS9 IP Console"',
+     'ip': '10.8.44.254/24'
+  },
+ 532: {
+  'description': '"SCS9 Admin-Clink"',
+  'ip': '10.8.44.254/24'
+
+ },
+ 832: {
+ 'description': '"SCS9 Admin"',
+ 'ip': '10.8.44.254/24'
+ }
+}
