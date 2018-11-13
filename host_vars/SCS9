@@ -1,0 +1,54 @@
+
+
+loopback_interfaces: {
+   32: {
+     'ip': '105.99.99.99/32',
+     'description': "SCS9 Customer VPN"
+    },
+  132 : {
+      'ip': '105.101.101.101/32',
+     'description': "SCS9 Admin VPN"
+  }
+}
+
+tunnel_interfaces : {
+ 32: {
+    'description': "SCS9 Customer VPN"
+  },
+  132: {
+    'description': "SCS9 Admin VPN"
+  }
+}
+
+aggregate_interface : {
+ 32: {
+     'ip': '10.8.44.254/24',
+     'description': "SCS9 Data"
+  },
+  132: {
+     'description': "SCS9 IP Console",
+      'ip': '10.8.44.254/24'
+   },
+  532: {
+   'description': "SCS9 Admin-Clink",
+   'ip': '10.8.44.254/24'
+
+  },
+  832: {
+  'description': "SCS9 Admin",
+  'ip': '10.8.44.254/24'
+  }
+}
+
+static_route_for_DNS: {
+ SCS9-DNS-1 : {
+     'DNS_Name': SCS9-DNS-1,
+     'DNS_IP' : 10.8.123.162,
+     'VR': VR-SCS9
+ },
+ SCS9-DNS-2 : {
+     'DNS_Name': SCS9-DNS-2,
+     'DNS_IP' : 10.8.123.163,
+     'VR': VR-SCS9
+ }
+}
