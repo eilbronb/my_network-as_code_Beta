@@ -1,5 +1,5 @@
-{% if 'description' in ethernet0/0.keys() %}
-description {{ ethernet0/0['description'] }}
+{% if 'description' in Ethernet_Interfaces %}
+description {{ Ethernet_Interfaces.keys['description'] }}
 {% endif %}
 
 {% if 'redirects' in Ethernet_Interfaces.keys() %}
