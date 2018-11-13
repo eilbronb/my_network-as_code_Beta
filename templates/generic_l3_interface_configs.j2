@@ -21,7 +21,7 @@ no ip unreachables
 {% if 'proxy-arp' in data.keys() %}
 {% if data['proxy-arp'] == true %}
 ip proxy-arp
-{% elf data['proxy-arp'] == false %}
+{% elif data['proxy-arp'] == false %}
 no ip proxy-arp
 {% endif %}
 {% endif %}
