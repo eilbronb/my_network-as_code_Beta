@@ -38,7 +38,7 @@ no shut
 {% if Ethernet_Interfaces is defined %}
 {% for key, value in Ethernet_Interfaces.items() %}
 interface {{ key }}
-{% include 'generic_l3_interface_configs.j2' ignore missing %}
+{% include 'templates/generic_l3_interface_configs.j2' ignore missing %}
 ip address {{ value['ip']}} {{ value['mask'] }}
 negotiation auto
 no shut
