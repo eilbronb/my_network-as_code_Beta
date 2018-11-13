@@ -1,27 +1,27 @@
-{% if 'description' in data.keys() %}
-description {{ data['description'] }}
+{% if 'description' in Ethernet_Interfaces.keys() %}
+description {{ Ethernet_Interfaces['description'] }}
 {% endif %}
 
-{% if 'redirects' in data.keys() %}
-{% if data['redirects'] == true %}
+{% if 'redirects' in Ethernet_Interfaces.keys() %}
+{% if Ethernet_Interfaces['redirects'] == true %}
 ip redirects
-{% elif data['redirects'] == false %}
+{% elif Ethernet_Interfaces['redirects'] == false %}
 no ip redirects
 {% endif %}
 {% endif %}
 
-{% if 'unreachables' in data.keys() %}
-{% if  data['unreachables'] == true %}
+{% if 'unreachables' in Ethernet_Interfaces.keys() %}
+{% if  Ethernet_Interfaces['unreachables'] == true %}
 ip unreachables
-{% elif data['unreachables'] == false %}
+{% elif Ethernet_Interfaces['unreachables'] == false %}
 no ip unreachables
 {% endif %}
 {% endif %}
 
-{% if 'proxy-arp' in data.keys() %}
-{% if data['proxy-arp'] == true %}
+{% if 'proxy-arp' in Ethernet_Interfaces.keys() %}
+{% if Ethernet_Interfaces['proxy-arp'] == true %}
 ip proxy-arp
-{% elif data['proxy-arp'] == false %}
+{% elif Ethernet_Interfaces['proxy-arp'] == false %}
 no ip proxy-arp
 {% endif %}
 {% endif %}
