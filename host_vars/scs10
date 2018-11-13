@@ -1,0 +1,13 @@
+set network interface loopback units loopback.$Loopback adjust-tcp-mss enable no
+set network interface loopback units loopback.$Loopback ip 105.99.99.99/32
+set network interface loopback units loopback.$Loopback interface-management-profile Mgmt
+set network interface loopback units loopback.$Loopback comment "SCS9 Customer VPN"
+set network interface loopback units loopback.$Admin_Loopback adjust-tcp-mss enable no
+set network interface loopback units loopback.$Admin_Loopback ip 105.101.101.101/32
+set network interface loopback units loopback.$Admin_Loopback interface-management-profile Mgmt
+set network interface loopback units loopback.$Admin_Loopback comment "SCS9 Admin VPN"
+
+
+set network interface tunnel units tunnel.32 comment "SCS9 Customer VPN"
+set network interface tunnel units tunnel.132 comment "SCS9 Admin VPN"
+
