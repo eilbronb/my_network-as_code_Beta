@@ -1,5 +1,5 @@
 ---
-  - name: Deploy Cisco IOS-XE Router Configurations
+  - name: Generate IOS Router Configurations
     connection: local
     hosts: us33
     gather-facts: no
