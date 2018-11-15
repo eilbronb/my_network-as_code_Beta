@@ -2,7 +2,7 @@
   - name: Generate IOS Router Configurations
     connection: local
     hosts: us33
-    gather-facts: no
+    gather_facts: no
     vars:
       creds:
         hostname: "us33-core-switch"
