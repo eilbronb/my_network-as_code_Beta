@@ -3,7 +3,7 @@ service timestamps debug datetime msec
 service timestamps log datetime msec
 service password-encryption
 !
-hostname us33-mpls-route
+hostname us33-core-switch
 logging_buff_size 8192
 clock timezone PST -8 0
 clock summer-time PDT recurring
@@ -20,7 +20,22 @@ username admin10 privilege 15 password 0 password123
 ntp server 10.10.10.11 prefer 
 ntp server 10.10.10.12
 
+interface loopback8
+ip address 105.99.99.99 255.255.255.255
+no shut
+interface loopback10
+ip address 105.101.101.101 255.255.255.255
+no shut
 
+interface ethernet0/2
+description to vpn router
+
+ip redirects
+
+
+ip address 10.10.10.35 255.255.255.240
+negotiation auto
+no shut
 
 
 !
