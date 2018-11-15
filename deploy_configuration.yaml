@@ -5,7 +5,7 @@
     gather_facts: no
     vars:
       creds:
-        hostname: "us33-core-switch"
+        hostname: "10.10.10.21"
         username: "admin"
         password: "password123"
         dev_os: "ios"
