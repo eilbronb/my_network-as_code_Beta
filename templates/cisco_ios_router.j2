@@ -47,19 +47,3 @@ no shut
 !
 no aaa new-model
 no ip icmp rate-limit unreachable
-!
-!
-!
-!
-!
-!
-no ip domain lookup
-ip domain name gns-beta
-ip cef
-no ipv6 cef
-
-interface Loopback0
- ip address 100.100.100.100 255.255.255.255
-!
-interface Loopback1
-ip address 99.99.99.99 255.255.255.255
