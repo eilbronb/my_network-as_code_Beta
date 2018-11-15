@@ -32,6 +32,11 @@ ip address 105.101.101.101 255.255.255.255
 no shut
 
 interface ethernet0/0
+description to vpn router
+
+ip redirects
+
+
 ip address 10.10.10.35 255.255.255.240
 negotiation auto
 no shut
