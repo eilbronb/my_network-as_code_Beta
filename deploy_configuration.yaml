@@ -11,6 +11,6 @@
         dev_os: "ios"
     tasks:
       - napalm_install_config:
-          provider: "{{ creds }}"
+          provider: {{ creds }}
           config_file: "configs/{{ inventory_hostname }}"
           commit_changes: False
