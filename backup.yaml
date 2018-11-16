@@ -10,3 +10,8 @@
         ios_config:
           backup: yes
         register: config_output
+
+      - name: Rename BACKUP
+        copy:
+          src: "{{ config_output.backup_path }}" 
+          dest: "./backup/{{ inventory_hostname }}.config"
