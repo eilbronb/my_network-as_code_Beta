@@ -20,5 +20,11 @@
         lineinfile:
           path: "./backup/{{ inventory_hostname }}.config"
           line: "Building configuration..."
+          state: absent
+      
+      - name: Remove Non Config Lines - REGEX
+        lineinfile:
+          path: "./backup/{{ inventory_hostname }}.config"
+          line: "Building configuration..."
           line: 'Current configuration.*'
           state: absent
