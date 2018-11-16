@@ -1,0 +1,13 @@
+---
+  - name: BACKUP Router Config
+    connection: network_cli
+    hosts: us33-core-switch
+    gather_facts: no
+    
+
+    taskss:
+      - name: BACKUP
+        ios_config:
+          backup: yes
+        register: config_output
+        
