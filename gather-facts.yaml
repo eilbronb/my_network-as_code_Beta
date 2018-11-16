@@ -11,4 +11,4 @@
 
       - name: Print Serial Number
         debug:
-          msg: "IOS:{{ ansible_net_version }} SN:{{ ansibile_net_serialnum }}"
+          msg: "IOS:{{ ansible_net_version }} SN:{{ ansible_net_serialnum }}"
