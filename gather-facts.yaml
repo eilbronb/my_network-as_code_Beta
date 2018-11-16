@@ -1,6 +1,6 @@
 ---
   - name: Gather Information
-    hosts: us33
+    hosts: us33-core-switch
     connection: network_cli
     gather_facts: no
 
