@@ -4,7 +4,7 @@ service timestamps log datetime msec
 service password-encryption
 !
 hostname {{ inventory_hostname }}
-logging_buff_size {{ logging_buff_size }}
+
 clock timezone {{ timezone }} {{ timezone_offset }} 0
 clock summer-time {{ timezone_summer }} recurring
 ip domain name {{ domain_name }}
