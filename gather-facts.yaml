@@ -1,0 +1,9 @@
+---
+  - name: Gather Information
+    hosts: us33
+    connection: network_cli
+    gather_facts: no
+
+    tasks:
+      - name: Gather IOS Facts
+        ios_facts:
