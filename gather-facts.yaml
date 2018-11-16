@@ -11,4 +11,4 @@
 
       - name: Print Facts
         debug:
-          msg: output0
+          msg: "{{ output0 }}"
