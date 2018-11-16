@@ -8,3 +8,7 @@
       - name: Gather IOS Facts
         ios_facts:
         register: output0
+
+      - name: Print Facts
+        debug:
+          msg: output0
