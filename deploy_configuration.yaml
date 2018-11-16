@@ -1,16 +1,14 @@
 ---
   - name: Generate IOS Router Configurations
-    connection: local
+    connection: network_cli
     hosts: us33-core-switch
     gather_facts: no
-    vars:
-      creds:
-        hostname: "10.10.10.21"
-        username: "admin"
-        password: "password123"
-        dev_os: "ios"
+
     tasks:
-      - napalm_install_config:
-          provider: "{{ creds }}"
-          config_file: "configs/{{ inventory_hostname }}"
-          commit_changes: False
+       
+      - name: Deploy Configuration
+        ios_config:
+          src: config/us33-core-switch
+          
+      
+
