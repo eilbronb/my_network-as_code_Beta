@@ -26,9 +26,9 @@ us33-idf-1
 us33-idf-2
 
 [us33:vars]
-library = /usr/lib/python3.6/site-packages/napalm_ansible/modules
-action_plugins = /usr/lib/python3.6/site-packages/napalm_ansible/plugins/action
-ansible_python_interpreter=/usr/bin/python3.6
+#library = /usr/lib/python3.6/site-packages/napalm_ansible/modules
+#action_plugins = /usr/lib/python3.6/site-packages/napalm_ansible/plugins/action
+#ansible_python_interpreter=/usr/bin/python3.6
 
 [SCS]
 SCS9
