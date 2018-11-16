@@ -26,5 +26,5 @@
         lineinfile:
           path: "./backup/{{ inventory_hostname }}.config"
           line: "Building configuration..."
-          line: "Current configuration.*"
+          line: "Current configuration*"
           state: absent
