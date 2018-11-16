@@ -7,3 +7,4 @@
     tasks:
       - name: Gather IOS Facts
         ios_facts:
+        register: output0
