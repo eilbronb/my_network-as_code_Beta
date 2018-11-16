@@ -8,7 +8,7 @@
        
       - name: Deploy Configuration
         ios_config:
-          src: config/us33-core-switch
-          
+          src: configs/us33-core-switch
+
       
 
