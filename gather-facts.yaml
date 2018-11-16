@@ -9,6 +9,6 @@
         ios_facts:
         register: output0
 
-      - name: Print Facts
+      - name: Print Serial Number
         debug:
-          msg: "{{ output0 }}"
+          msg: "IOS:{{ ansible_net_version }} SN:{{ ansibile_net_serialnum }}"
