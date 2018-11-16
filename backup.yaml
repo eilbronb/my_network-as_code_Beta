@@ -18,7 +18,6 @@
       
       - name: Remove Non Config Lines
         lineinfile:
-          path: "./backup/{{ inventor_hostname }}.config"
+          path: "./backup/{{ inventory_hostname }}.config"
           line: "Building configuration..."
           state: absent
-          
