@@ -15,3 +15,10 @@
         copy:
           src: "{{ config_output.backup_path }}" 
           dest: "./backup/{{ inventory_hostname }}.config"
+      
+      - name: Remove Non Config Lines
+        lineinfile:
+          path: "./backup/{{ inventor_hostname }}.config"
+          line: "Building configuration..."
+          state: absent
+          
