@@ -1,0 +1,13 @@
+---
+  - name: IOS Config
+    hosts: us33-core-switch
+    connection: network_cli
+    gather_facts: no
+
+    tasks:
+      - name: Configure SNP
+        ios_config:
+          commands:
+            - snmp-server community ansible-public RO
+            - snmp-server community ansible-private RW
+            
