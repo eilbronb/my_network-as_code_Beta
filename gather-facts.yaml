@@ -26,4 +26,8 @@
           var: show_output
         tags: show
 
+      - name: Display Hostname
+        debug:
+          msg: "The Hostname is {{ show_output.stdout[0] }}"
+
 
