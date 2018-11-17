@@ -12,3 +12,11 @@
       - name: Print Serial Number
         debug:
           msg: "IOS:{{ ansible_net_version }} SN:{{ ansible_net_serialnum }}"
+
+      - name: Collect output of show command
+        ios_command:
+          commands:
+            - show run | i hostname
+            - show ip interface brief
+            
+
