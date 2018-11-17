@@ -29,5 +29,7 @@
       - name: Display Hostname
         debug:
           msg: "The Hostname is {{ show_output.stdout[0] }}"
+        tags: show
+        
 
 
