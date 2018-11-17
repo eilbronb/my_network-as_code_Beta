@@ -12,3 +12,12 @@
             - snmp-server community ansible-private RW
             - snmp-server community ansible-test RO
                         
+ - name: Hardening from file
+   hosts: us33-core-switch
+   connection: network_cli
+   gather_facts: no
+    
+   tasks:
+    - name: Ensure that routers are secure
+      ios_config:
+        src: hardening.cfg
