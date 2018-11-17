@@ -21,5 +21,9 @@
         tags: show
         register: show_output
          
+      - name: Display Configuration
+        debug:
+          msg: "{{ show_output }}"
+        tags: show
 
 
