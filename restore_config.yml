@@ -7,3 +7,9 @@
     tasks:
       - name: Copy Running Config to Router
         command: scp ./backup/{{inventory_hostname}}.config "admin@"{{inventory_hostname}}:/{{inventory_hostname}}.config
+       
+      - name: Config Replace
+        ios_command:
+          commands:
+            - config replace flash:{{ineventory_hostname}}.config force
+            
