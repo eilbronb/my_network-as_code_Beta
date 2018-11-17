@@ -18,5 +18,8 @@
           commands:
             - show run | i hostname
             - show ip interface brief
-            
+         tags: show
+         register: show_output
+         
+
 
