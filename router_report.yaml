@@ -19,3 +19,10 @@
         template:
           src: os_report.j2
           dest: reports/{{inventory_hostname}}.md  
+
+      - name: Cosnolidate the IOS Report
+        assemble:
+          src: reports/
+          dest: reports/network_os_report.md
+        delegate_to: localhost
+        run_once: yes
