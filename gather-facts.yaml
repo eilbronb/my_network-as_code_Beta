@@ -23,7 +23,7 @@
          
       - name: Display Configuration
         debug:
-          msg: "{{ show_output }}"
+          var: show_output
         tags: show
 
 
