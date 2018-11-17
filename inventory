@@ -9,7 +9,7 @@ ansible_network_os=ios
 
 [ios]
 R1 ansible_host=10.10.10.27
-R2 ansible_host=10.10.10.26
+R2 ansible_host=10.10.10.22
 IOU-L3 ansible_host=10.10.10.21
 
 
@@ -19,11 +19,12 @@ IOU-L3 ansible_host=10.10.10.21
 
 
 [us33]
-us33-vpn-router
+us33-vpn-router ansible_host=10.10.10.22
 us33-mpls-route
 us33-core-switch ansible_host=10.10.10.21
 us33-idf-1
 us33-idf-2
+
 
 [us33:vars]
 #library = /usr/lib/python3.6/site-packages/napalm_ansible/modules
