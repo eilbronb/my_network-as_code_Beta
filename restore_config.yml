@@ -1,0 +1,10 @@
+---
+  - name: Restore Config
+    hosts: us33-core-switch
+    connection: network_cli
+    gather_facts: no
+
+    tasks:
+      - name: Copy Running Config to Router
+        command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
+        
