@@ -6,5 +6,4 @@
 
     tasks:
       - name: Copy Running Config to Router
-        command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
-        
+        command: scp ./backup/{{inventory_hostname}}.config "admin@"{{inventory_hostname}}:/{{inventory_hostname}}.config
