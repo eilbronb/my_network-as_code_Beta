@@ -1,7 +1,7 @@
 ---
   - name: Generate A Report From ROUTERS
     hosts: us33
-    connection: network_cli
+    connection: local
     gather_facts: no
 
 
