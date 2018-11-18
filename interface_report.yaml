@@ -1,0 +1,14 @@
+---
+  - name: Generate Interface Report
+    hosts: us33
+    connection: network_cli
+    gather_facts: no 
+
+    roles:
+      - ansible-network.network-engine
+
+    tasks:
+      - name: Capture Show interfaces
+        ios_command:
+          -  show interfaces
+          
