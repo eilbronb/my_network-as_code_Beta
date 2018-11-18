@@ -12,4 +12,7 @@
         ios_command:
           commands:
             - config replace flash:{{ineventory_hostname}}.config force
-            
+      
+      - name: Display The PARSED Data
+        debug:
+          var: interface_facts
