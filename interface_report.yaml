@@ -32,6 +32,6 @@
         assemble:
           src: intf_reports/
           dest: intf_reports/interfaces_report.md
-        delegate: localhost
+        delegate_to: localhost
         run_once: yes
         
