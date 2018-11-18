@@ -19,6 +19,19 @@
           file: "parsers/show_interfaces.yaml"
           content: "{{output.stdout[0]}}"
 
-      - name: Display The PARSED Data
-        debug:
-          var: interface_facts
+      #- name: Display The PARSED Data
+      # debug:
+      #   var: interface_facts
+      - name: Generate report fragments
+        template:
+          src: interface_facts.j2
+          dest: intf_reports/{{inventory_hostname}}_intf_report.md
+        
+       
+      - name: Generate a Consolidated Report
+        assemble:
+            src: intf_reports/
+            dest: intf_reports/interfaces_report.md
+        delegate: localhost
+        run_once: yes
+        
