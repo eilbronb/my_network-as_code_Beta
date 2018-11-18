@@ -10,5 +10,6 @@
     tasks:
       - name: Capture Show interfaces
         ios_command:
-          -  show interfaces
+          commands:
+            - show interfaces
           
