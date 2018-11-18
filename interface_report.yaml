@@ -18,3 +18,7 @@
         command_parser:
           file: "parsers/show_interfaces.yaml"
           content: "{{output.stdout[0]}}"
+
+      - name: Display The PARSED Data
+        debug:
+          var: interface_facts
