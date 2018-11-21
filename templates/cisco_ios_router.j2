@@ -36,7 +36,6 @@ no shut
 interface {{ key }}
 {% include 'generic_l3_interface_configs.j2' %}
 ip address {{ value['ip']}} {{ value['mask'] }}
-negotiation auto
 no shut
 {% endfor %}
 {% endif %}
