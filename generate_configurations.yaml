@@ -3,7 +3,14 @@
     connection: local
     hosts: us33
     gather_facts: no
+      
     tasks:
+
+      - name: Ensure Config Dir Exists
+        file:
+          path: configs/
+          state: directory
+          
       - template:
           src=templates/cisco_ios_router.j2
           dest=configs/{{ inventory_hostname }}
