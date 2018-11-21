@@ -1,7 +1,7 @@
 ---
   - name: Generate IOS Router Configurations
     connection: local
-    hosts: us33-vpn-router
+    hosts: us33
     gather_facts: no
     tasks:
       - template:
