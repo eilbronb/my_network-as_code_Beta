@@ -5,6 +5,14 @@ node {
        checkout scm
    }
    
+   stage ('Validate Configuration') {
+       sh 'ansible-playbook generate_configurations.yaml --syntax-check'
+   }
+
+   stage ('Validate Configration') {
+       sh 'ansible-playbook deploy_configuration.yaml --syntax-check'
+   }
+
    stage ('Render Configurations') {
        //Generate configuration
        sh 'ansible-playbook generate_configurations.yaml'
