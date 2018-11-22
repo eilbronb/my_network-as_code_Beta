@@ -7,7 +7,7 @@
     tasks:
 
       - name: Ensure Config Dir Exists
-        file
+        file:
           path: configs/
           state: directory
           
