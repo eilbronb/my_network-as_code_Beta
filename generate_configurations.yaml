@@ -14,4 +14,4 @@
       - template:
           src=templates/cisco_ios_router.j2
           dest=configs/{{ inventory_hostname }}
-          #dest=host_vars/{{ inventory_hostname }}
+         
