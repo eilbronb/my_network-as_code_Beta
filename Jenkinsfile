@@ -25,7 +25,7 @@ node {
    
    stage ('Verify Connectivity') {
        //Ping some IPs
-       sh 'ansible_playbook verify_connectivity.yaml'
+       sh 'ansible_playbook verify-connectivity.yaml'
    }
    
    stage ('Promotye Configuration to Production') {
