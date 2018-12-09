@@ -23,8 +23,9 @@ node {
        sh 'ansible-playbook deploy_configuration.yaml'
    }
    
-   stage ('Deploy Confoiguration to Dev') {
-       //Push Config
+   stage ('Verify Connectivity') {
+       //Ping some IPs
+       sh 'ansible_playbook verify_connectivity.yaml'
    }
    
    stage ('Promotye Configuration to Production') {
