@@ -8,8 +8,8 @@
       - name: Ping Verification
         ios_command:
           commands:
-        #     - show run
-        #     - show ip int brief
+             - show run
+             - show ip int brief
         # register: ping_output
         # debug:
         #   msg: "{{ ping_output }}"
