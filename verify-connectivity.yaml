@@ -19,6 +19,6 @@
           - "'(4/5)'not in ping_output.stdout_lines[0][-1] "
         with_items: "{{ test_IPs }}"  
       - debug:
-          msg: "{{ ping_output.results}}"
+          msg: "{{ ping_output.results.stdout_lines[0][-1] }}"
 
 
