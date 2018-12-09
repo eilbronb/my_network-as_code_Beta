@@ -10,7 +10,7 @@
           commands:
              - show run
              - show ip int brief
-        # register: ping_output
+        register: ping_output
         # debug:
         #   msg: "{{ ping_output }}"
 
