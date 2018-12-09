@@ -1,0 +1,17 @@
+---
+  - name: Verify Connectivity
+    hosts: us33
+    connection: network_cli
+    gather_facts: no
+
+    tasks:
+    
+      - name: Ping Verification
+        ios_config:
+          commands:
+            - ping 10.10.10.20
+        register: ping_output
+        debug:
+          msg: "{{ ping_output }}"
+
+
