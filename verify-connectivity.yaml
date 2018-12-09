@@ -3,17 +3,21 @@
     hosts: us33
     connection: network_cli
     gather_facts: no
-
+    
+    vars:
+      test_IPs:
+        - 10.10.10.20
+        - 10.10.10.11
     tasks:
       - name: Ping Verification
         ios_command:
           commands:
-             - ping 10.10.10.20
-             - ping 10.10.10.11
+             - "ping {{ item }}"
         register: ping_output
         failed_when:
           - "'(5/5)'not in ping_output.stdout_lines[0][-1] "
           - "'(4/5)'not in ping_output.stdout_lines[0][-1] "
+        with_items: "{{ test_IPs }}"  
       - debug:
           msg: "{{ ping_output.stdout_lines[0][-1] }}"
 
