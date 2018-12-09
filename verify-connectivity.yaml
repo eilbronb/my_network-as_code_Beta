@@ -7,7 +7,7 @@
     tasks:
     
       - name: Ping Verification
-        ios_config:
+        ios_command:
           commands:
             - ping 10.10.10.20
         register: ping_output
