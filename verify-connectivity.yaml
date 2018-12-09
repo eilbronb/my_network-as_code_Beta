@@ -11,6 +11,9 @@
              - ping 10.10.10.20
              - ping 10.10.10.11
         register: ping_output
+        failed_when:
+          - "'(5/5)'not in ping_output.stdout_lines[0][-1] "
+          - "'(4/5)'not in ping_output.stdout_lines[0][-1] "
       - debug:
           msg: "{{ ping_output.stdout_lines[0][-1] }}"
 
