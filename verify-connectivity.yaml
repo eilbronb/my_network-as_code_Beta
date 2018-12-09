@@ -12,6 +12,6 @@
              - ping 10.10.10.11
         register: ping_output
       - debug:
-          msg: "{{ ping_output }}"
+          msg: "{{ ping_output.stdout_lines }}"
 
 
