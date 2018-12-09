@@ -13,13 +13,14 @@ node {
        sh 'ansible-playbook deploy_configuration.yaml --syntax-check'
    }
 
-   stage ('Render Configurations') {
+   stage ('Generate Render Configurations') {
        //Generate configuration
        sh 'ansible-playbook generate_configurations.yaml'
    }
 
-   stage ('Unit Testing') {
+   stage ('Deploy Router Configuration ') {
        //Do some kind of testing
+       sh 'ansible-playbook deploy_configuration.yaml'
    }
    
    stage ('Deploy Confoiguration to Dev') {
